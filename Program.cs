@@ -108,9 +108,8 @@ namespace NewC_2_11
                             currentManaPlayer += damageTreatmentManaPlayer;
                             numberApplicationsTreatment--;
 
-                            if (currentHealthPlayer > MaxHealthPlayer) { currentHealthPlayer = MaxHealthPlayer; }
-
-                            if (currentManaPlayer > MaxManaPlayer) { currentManaPlayer = MaxManaPlayer; }
+                            if (currentHealthPlayer > MaxHealthPlayer) currentHealthPlayer = MaxHealthPlayer;
+                            if (currentManaPlayer > MaxManaPlayer)  currentManaPlayer = MaxManaPlayer; 
 
                             Console.WriteLine($"Вы восстановили себе здоровье и ману.");
                         }
