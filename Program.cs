@@ -42,7 +42,7 @@ namespace NewC_2_11
 
             Console.WriteLine($"Бой с боссом, у Вас есть умения и атаки для сражения. Бой происходит по ходам, Вы атакуете первым.");
 
-            while (currentHealthPlayer <= 0 || currentHealthBoss <= 0)
+            while (currentHealthPlayer > 0 || currentHealthBoss > 0)
             {
                 Console.WriteLine($"___________________________________________________________" +
                     $"\nВаше здоровье - {currentHealthPlayer}; Ваша мана - {currentManaPlayer}." +
@@ -108,8 +108,15 @@ namespace NewC_2_11
                             currentManaPlayer += damageTreatmentManaPlayer;
                             numberApplicationsTreatment--;
 
-                            if (currentHealthPlayer > MaxHealthPlayer) currentHealthPlayer = MaxHealthPlayer;
-                            if (currentManaPlayer > MaxManaPlayer)  currentManaPlayer = MaxManaPlayer; 
+                            if (currentHealthPlayer > MaxHealthPlayer)
+                            {
+                                currentHealthPlayer = MaxHealthPlayer;
+                            }
+
+                            if (currentManaPlayer > MaxManaPlayer)
+                            {
+                                currentManaPlayer = MaxManaPlayer;
+                            }
 
                             Console.WriteLine($"Вы восстановили себе здоровье и ману.");
                         }
