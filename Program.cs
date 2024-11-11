@@ -6,19 +6,18 @@ namespace NewC_2_11
     {
         static void Main(string[] args)
         {
-            const string ConsoleMenuCommonAttackPlayer = "1";
-            const string ConsoleFireballAttackPlayer = "2";
-            const string ConsoleExplosionAttackPlayer = "3";
-            const string ConsoleMenuCTreatmentPlayer = "4";
-            const int CommonAttackBoss = 1;
-            const int PowerfulAttackBoss = 2;
-            const int AbilityAttackBoss = 3;
+            const string CommonAttackPlayerCommand = "1";
+            const string FireballAttackPlayerCommand = "2";
+            const string ExplosionAttackPlayerCommand = "3";
+            const string TreatmentPlayerCommand = "4";
+            const int CommonAttackBossCommand = 1;
+            const int PowerfulAttackBossCommand = 2;
+            const int AbilityAttackBossCommand = 3;
             const int MaxHealthPlayer = 500;
             const int MaxManaPlayer = 100;
 
             Random random = new Random();
-
-            bool isBattle = true;
+            ;
             bool isBurn = false;
 
             int currentHealthPlayer = MaxHealthPlayer;
@@ -43,28 +42,28 @@ namespace NewC_2_11
 
             Console.WriteLine($"Бой с боссом, у Вас есть умения и атаки для сражения. Бой происходит по ходам, Вы атакуете первым.");
 
-            while (isBattle)
+            while (currentHealthPlayer <= 0 || currentHealthBoss <= 0)
             {
                 Console.WriteLine($"___________________________________________________________" +
                     $"\nВаше здоровье - {currentHealthPlayer}; Ваша мана - {currentManaPlayer}." +
                     $"\nЗдорровье босса - {currentHealthBoss}" +
-                    $"\n{ConsoleMenuCommonAttackPlayer} Обычная атака наносит {damageCommonAttackPlayer} ед урона." +
-                    $"\n{ConsoleFireballAttackPlayer} Огненный шар. Наномит {damageFireballAttackPlayer} ед урона  и тратит {damageManaFireballAttackPlayer} ед маны, накладывает эффект горения на 1 ход." +
-                    $"\n{ConsoleExplosionAttackPlayer} Взрыв. Наносит {damageExplosionAttackPlayer} ед урона, тратит {damageManaExplosionAttackPlayer} ед маны, можно использовать если на цели есть эффект горения." +
-                    $"\n{ConsoleMenuCTreatmentPlayer} Лечение. Исцеляет {damageTreatmentHealthPlayer} ед хдоровья и восстанавливает {damageTreatmentManaPlayer} ед здоровья игроку. за бой мозно использовать {numberApplicationsTreatment} раза." +
+                    $"\n{CommonAttackPlayerCommand} Обычная атака наносит {damageCommonAttackPlayer} ед урона." +
+                    $"\n{FireballAttackPlayerCommand} Огненный шар. Наномит {damageFireballAttackPlayer} ед урона  и тратит {damageManaFireballAttackPlayer} ед маны, накладывает эффект горения на 1 ход." +
+                    $"\n{ExplosionAttackPlayerCommand} Взрыв. Наносит {damageExplosionAttackPlayer} ед урона, тратит {damageManaExplosionAttackPlayer} ед маны, можно использовать если на цели есть эффект горения." +
+                    $"\n{TreatmentPlayerCommand} Лечение. Исцеляет {damageTreatmentHealthPlayer} ед хдоровья и восстанавливает {damageTreatmentManaPlayer} ед здоровья игроку. за бой мозно использовать {numberApplicationsTreatment} раза." +
                     $"\nВаш ход, выберите действие.");
 
                 inputPlayer = Console.ReadLine();
 
                 switch (inputPlayer)
                 {
-                    case ConsoleMenuCommonAttackPlayer:
+                    case CommonAttackPlayerCommand:
                         currentHealthBoss -= damageCommonAttackPlayer;
                         isBurn = false;
                         Console.WriteLine($"Вы наносите боссу {damageCommonAttackPlayer} урона.");
                         break;
 
-                    case ConsoleFireballAttackPlayer:
+                    case FireballAttackPlayerCommand:
                         if (currentManaPlayer >= damageManaFireballAttackPlayer)
                         {
                             currentHealthBoss -= damageFireballAttackPlayer;
@@ -80,7 +79,7 @@ namespace NewC_2_11
 
                         break;
 
-                    case ConsoleExplosionAttackPlayer:
+                    case ExplosionAttackPlayerCommand:
                         if (isBurn == true)
                         {
                             if (currentManaPlayer >= damageManaExplosionAttackPlayer)
@@ -89,14 +88,20 @@ namespace NewC_2_11
                                 currentManaPlayer -= damageManaExplosionAttackPlayer;
                                 Console.WriteLine($"Вы наносите боссу {damageExplosionAttackPlayer} урона.");
                             }
-                            else Console.WriteLine($"Не достаточно маны, атака не доступна.");
+                            else
+                            {
+                                Console.WriteLine($"Не достаточно маны, атака не доступна.");
+                            }
                         }
-                        else Console.WriteLine($"Цель не горит, атака не возможна.");
+                        else
+                        {
+                            Console.WriteLine($"Цель не горит, атака не возможна.");
+                        }
 
                         isBurn = false;
                         break;
 
-                    case ConsoleMenuCTreatmentPlayer:
+                    case TreatmentPlayerCommand:
                         if (numberApplicationsTreatment > 0)
                         {
                             currentHealthPlayer += damageTreatmentHealthPlayer;
@@ -109,7 +114,10 @@ namespace NewC_2_11
 
                             Console.WriteLine($"Вы восстановили себе здоровье и ману.");
                         }
-                        else Console.WriteLine($"Не достаточно зарядов, исцеление не доступно.");
+                        else
+                        {
+                            Console.WriteLine($"Не достаточно зарядов, исцеление не доступно.");
+                        }
 
                         isBurn = false;
                         break;
@@ -118,24 +126,23 @@ namespace NewC_2_11
                         Console.WriteLine($"Такой команды нет, вы пропускаете ход.");
                         isBurn = false;
                         break;
-
                 }
 
                 randomAttackBoss = random.Next(minRandomAttackBoss, maxRandomAttackBoss + 1);
 
                 switch (randomAttackBoss)
                 {
-                    case CommonAttackBoss:
+                    case CommonAttackBossCommand:
                         currentHealthPlayer -= damageCommonAttackBoss;
                         Console.WriteLine($"Босс наносит Вам {damageCommonAttackBoss} урона.");
                         break;
 
-                    case PowerfulAttackBoss:
+                    case PowerfulAttackBossCommand:
                         currentHealthPlayer -= damagePowerfulAttackBoss;
                         Console.WriteLine($"Босс наносит Вам {damagePowerfulAttackBoss} урона.");
                         break;
 
-                    case AbilityAttackBoss:
+                    case AbilityAttackBossCommand:
                         currentHealthPlayer -= damageAbilityAttackBoss;
 
                         if (isBurn == true)
@@ -147,15 +154,22 @@ namespace NewC_2_11
                         Console.WriteLine($"Босс наносит Вам {damageAbilityAttackBoss} урона.");
                         break;
                 }
-
-                if (currentHealthPlayer<= 0 || currentHealthBoss <= 0) { isBattle = false; }
             }
 
             Console.WriteLine($"Бой закончился.");
 
-            if (currentHealthBoss > 0 && currentHealthPlayer <= 0) { Console.WriteLine($"Вы проиграли. Вы погибли"); }
-            else if (currentHealthPlayer > 0 && currentHealthBoss <= 0) { Console.WriteLine($"Вы выиграли. Босс повержен"); }
-            else if (currentHealthPlayer <= 0 && currentHealthBoss <= 0) { Console.WriteLine($"Ничья, оба противника погибли."); }
+            if (currentHealthBoss > 0 && currentHealthPlayer <= 0)
+            {
+                Console.WriteLine($"Вы проиграли. Вы погибли");
+            }
+            else if (currentHealthPlayer > 0 && currentHealthBoss <= 0)
+            {
+                Console.WriteLine($"Вы выиграли. Босс повержен");
+            }
+            else if (currentHealthPlayer <= 0 && currentHealthBoss <= 0)
+            {
+                Console.WriteLine($"Ничья, оба противника погибли.");
+            }
 
             Console.ReadKey();
         }
